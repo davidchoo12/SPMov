@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="css/styles.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" />
+
+  </head>
+
+  <body>
+    <div class="navbar-fixed">
+        <nav>
+            <a href="#!" class="brand-logo">Logo</a>
+            <ul id="slide-out" class="side-nav fixed">
+                <li class="user-details">
+                    <div class="row">
+                        <div class="col m4">
+                            <img src="img/avatar.jpg" alt="You" class="circle responsive-img valign">
+                        </div>
+                        <div class="col m8">
+                            <ul id="profile-dropdown" class="dropdown-content">
+                                <li><a href="#"><i class="material-icons small">keyboard_tab</i> Logout</a></li>
+                            </ul>
+                            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown" data-beloworigin="true">John Doe<i class="material-icons right">arrow_drop_down</i></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="bold"><a href="#!" class="waves-effect waves-teal"><i class="material-icons small">local_movies</i> Movies</a></li>
+                <li class="bold"><a href="#!" class="waves-effect waves-teal">Locations</a></li>
+                <li class="bold"><a href="#!" class="waves-effect waves-teal">Genres</a></li>
+            </ul>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        </nav>
+    </div>
+    <main>
+        <div class="container">
+            <table class="bordered highlight row-border" id="example">
+              <thead>
+                <tr>
+                    <th></th>
+                    <th class="site_name">Movie Id</th>
+                    <th>Title</th>
+                    <th>Duration</th>
+                    <th>Release date</th>
+                    <th>Actions</th>
+                </tr>
+              </thead>
+            </table>
+        </div>
+    </main>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(".button-collapse").sideNav();
+    var table = $("#example").DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "data":[
+        {
+            "id": 1,
+            "title": "Iron Man",
+            "duration": 100,
+            "release": "2013/10/15",
+            "image": "https://i.ytimg.com/vi/uXREppruXno/maxresdefault.jpg",
+            "synopsis": "Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here"
+        },
+        {
+            "id": 1,
+            "title": "Iron Man",
+            "duration": 100,
+            "release": "2013/10/15",
+            "image": "https://i.ytimg.com/vi/uXREppruXno/maxresdefault.jpg",
+            "synopsis": "Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here"
+        },
+        {
+            "id": 1,
+            "title": "Iron Man",
+            "duration": 100,
+            "release": "2013/10/15",
+            "image": "https://i.ytimg.com/vi/uXREppruXno/maxresdefault.jpg",
+            "synopsis": "Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here Lorem Ipsum Iron Man synopsis here"
+        },
+        {
+            "id": 1,
+            "title": "Iron Man",
+            "duration": 100,
+            "release": "2013/10/15",
+            "image": null,
+            "synopsis": null
+        }
+        ],
+        "columns" :[{
+            "className": 'details-control',
+            "orderable": false,
+            "data": null,
+            "defaultContent": '<i class="tiny material-icons">expand_more</i>',
+            "width": '5%'
+        },
+        {"data":"id"},
+        {"data":"title"},
+        {"data":"duration"},
+        {"data":"release"},
+        {"data":null}
+        ],
+        "order": [[1, 'asc']],
+        "aoColumnDefs":[{
+            "sTitle":"Movie id",
+            "aTargets": [ "site_name" ]
+        },
+        {
+            "aTargets":[3],
+            "sType": "numeric",
+            "mRender": function(num, type, full) {
+              return parseInt(num/60) + 'h ' + num%60 + 'min';
+            }  
+        },
+        {
+            "aTargets":[5],
+            "mRender": function(data, type, full){
+                return '<a href="one-movie.html" class="waves-effect waves-teal btn">Edit</a><a class="waves-effect waves-teal red btn-flat">Remove</a>';
+            },
+            "orderable": false
+        },]
+    });
+    function format ( d ) {
+    // `d` is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+            '<tr>'+
+                '<td>'+(d.image != null?'<img class="poster" src="'+d.image+'" />' : 'no image') +'</td>'+
+                '<td>'+(d.synopsis!=null?d.synopsis:'no synopsis')+'</td>'+
+            '</tr>'+
+        '</table>';
+    }
+    $('#example tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            $(this).html('<i class="tiny material-icons">expand_more</i>');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            $(this).html('<i class="tiny material-icons">expand_less</i>');
+        }
+    } );
+
+
+
+    $('select').material_select();
+    // $('.dropdown-button').dropdown();
+    // $('tbody>tr').wrap('<a class="waves-effect waves-teal">');
+    </script>
+  </body>
+</html>

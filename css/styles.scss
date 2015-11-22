@@ -1,0 +1,67 @@
+$theme-color: #333;
+
+main {
+	padding-left: 240px;
+	container{
+		margin: 150px;
+	}
+}
+nav {
+	background-color: $theme-color;
+}
+#slide-out{
+	top: 64px;
+	li.user-details {
+		background: url(../img/user-bg.jpg) no-repeat center center;
+		background-size: cover;
+		margin-bottom: 15px;
+		padding: 15px 0px 0px 15px;
+		#profile-dropdown li {
+			line-height: 42px;
+			padding: 0;
+		}
+		.profile-btn {
+			margin: 0;
+			text-transform: capitalize;
+			padding: 0;
+			text-shadow: 1px 1px 1px #444;
+			font-size: 15px;
+			height: 42px;
+		}
+	}
+	a {
+		line-height: 42px;
+		height: 42px;
+		i {
+			line-height: inherit;
+		    width: 2rem;
+		    font-size: 1.6rem;
+		    display: block;
+		    float: left;
+		    text-align: center;
+		    margin-right: 1rem;
+		}
+	}
+}
+.clickable{
+	cursor: pointer;
+}
+.details-control{
+	@extend .clickable;
+	width: 5%;
+	// background: <i class="material-icons">expand more</i>;
+}
+tr>first-child {
+	width: 5%;
+}
+tr .shown{
+	.details-control {
+		// background: <i class="material-icons">expand less</i>
+	}
+}
+.poster{
+	max-width: 200px;
+}
+.text-left{
+	text-align: left;
+}
